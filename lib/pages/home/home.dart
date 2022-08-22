@@ -5,17 +5,21 @@ import 'package:npo_automative_app/pages/home/bottom_navigation.dart';
 import 'package:npo_automative_app/pages/home/tab_nav.dart';
 
 class HomePage extends StatefulWidget {
+  final ctx;
+  HomePage(this.ctx);
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState(ctx);
 }
 
 class _HomePageState extends State<HomePage> {
+  final ctx;
+  _HomePageState(this.ctx);
   AuthUserBloc authUserBloc = AuthUserBloc();
 
   final _navigatorKeys = {
     TabItem.POSTS: GlobalKey<NavigatorState>(),
     TabItem.ALBUMS: GlobalKey<NavigatorState>(),
-    TabItem.TODOS: GlobalKey<NavigatorState>(),
+    TabItem.PROFILE: GlobalKey<NavigatorState>(),
   };
 
   var _currentTab = TabItem.POSTS;
@@ -26,11 +30,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-  print('sdfdsf $authUserBloc.isAuth');
     return WillPopScope(
       onWillPop: () async {
         if (_currentTab != TabItem.POSTS) {
-          if (_currentTab == TabItem.TODOS) {
+          if (_currentTab == TabItem.PROFILE) {
             _selectTab(TabItem.ALBUMS);
           } else {
             _selectTab(TabItem.POSTS);
@@ -45,7 +48,7 @@ class _HomePageState extends State<HomePage> {
         body: Stack(children: <Widget>[
           _buildOffstageNavigator(TabItem.POSTS),
           _buildOffstageNavigator(TabItem.ALBUMS),
-          _buildOffstageNavigator(TabItem.TODOS),
+          _buildOffstageNavigator(TabItem.PROFILE),
         ]),
         bottomNavigationBar: MyBottomNavigation(
           currentTab: _currentTab,
@@ -60,6 +63,7 @@ class _HomePageState extends State<HomePage> {
       child: TabNavigator(
         navigatorKey: _navigatorKeys[tabItem]!,
         tabItem: tabItem,
+        ctx: this.ctx,
       ),
     );
   }

@@ -4,7 +4,7 @@ import '../../models/tab.dart';
 const Map<TabItem, MyTab> tabs = {
   TabItem.POSTS: const MyTab(name: "Меню", color: Colors.deepPurple, icon: Icons.layers_outlined),
   TabItem.ALBUMS: const MyTab(name: "Отгрузки", color: Colors.deepPurple, icon: Icons.local_shipping_outlined),
-  TabItem.TODOS: const MyTab(name: "Профиль", color: Colors.deepPurple, icon: Icons.account_circle_outlined),
+  TabItem.PROFILE: const MyTab(name: "Профиль", color: Colors.deepPurple, icon: Icons.account_circle_outlined),
 };
 
 class MyBottomNavigation extends StatelessWidget {
@@ -24,7 +24,7 @@ class MyBottomNavigation extends StatelessWidget {
       items: [
         _buildItem(TabItem.POSTS),
         _buildItem(TabItem.ALBUMS),
-        _buildItem(TabItem.TODOS),
+        _buildItem(TabItem.PROFILE),
       ],
       onTap: (index) => onSelectTab(
         TabItem.values[index]

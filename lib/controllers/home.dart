@@ -18,7 +18,7 @@ class HomeController extends ControllerMVC {
   final _navigatorKeys = {
     TabItem.POSTS: GlobalKey<NavigatorState>(),
     TabItem.ALBUMS: GlobalKey<NavigatorState>(),
-    TabItem.TODOS: GlobalKey<NavigatorState>(),
+    TabItem.PROFILE: GlobalKey<NavigatorState>(),
   };
 
   Map<TabItem, GlobalKey> get navigatorKeys => _navigatorKeys;

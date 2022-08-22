@@ -16,7 +16,7 @@ class Repository {
       return PostList.fromJson(json.decode(response.body));
     } else {
       throw Exception("failed request");
-    }
+    } 
   }
 
   Future<PostAdd> addPost(Post post) async {

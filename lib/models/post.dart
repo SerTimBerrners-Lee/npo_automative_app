@@ -16,7 +16,7 @@ class Post {
     return json.encode({
       "title": _title,
       "content": _body,
-    });
+    }); 
   }
 
   Post.fromJson(Map<String, dynamic> json) :

@@ -6,10 +6,11 @@ import '../../models/tab.dart';
 
 
 class TabNavigator extends StatelessWidget {
-  TabNavigator({required this.navigatorKey, required this.tabItem});
+  TabNavigator({required this.navigatorKey, required this.tabItem, required this.ctx});
 
   final GlobalKey<NavigatorState> navigatorKey;
   final TabItem tabItem;
+  final ctx;
 
   @override 
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class TabNavigator extends StatelessWidget {
         } else if (tabItem == TabItem.ALBUMS) {
           currentPage = ShipmentsComplitPage();
         } else {
-          currentPage = ProfilePage();
+          currentPage = ProfilePage(ctx);
         }
 
         return MaterialPageRoute(builder: (context) => currentPage);

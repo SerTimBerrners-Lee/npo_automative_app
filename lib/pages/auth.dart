@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:npo_automative_app/block/auth_block.dart';
+import 'package:npo_automative_app/block/login_bloc.dart';
+import 'package:npo_automative_app/block/login_event.dart';
 import 'package:npo_automative_app/pages/home/home.dart';
 
 class AuthPage extends StatelessWidget {
+  final BuildContext ctx;
+  AuthPage(this.ctx);
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -158,12 +164,7 @@ class AuthPage extends StatelessWidget {
                       textStyle: const TextStyle(fontSize: 20),
                     ),
                     onPressed: () async {
-                      authUserBloc.authorized();
-                      Navigator.push(context,
-                        MaterialPageRoute(
-                          builder: (context) => HomePage()
-                        ),
-                      );
+                      ctx.read<LoginBloc>().add(LoginButtonTappedEvent());
                     },
                     child: const Text('Авторизация'),
                   ),

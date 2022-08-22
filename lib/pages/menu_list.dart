@@ -22,7 +22,7 @@ class _PostListPageState extends State<PostListPage> {
     }
   }
 
-  @override
+  @override 
   void initState() {
     super.initState();
     init();

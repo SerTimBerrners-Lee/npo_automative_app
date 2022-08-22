@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:npo_automative_app/block/auth_block.dart';
-import 'package:npo_automative_app/pages/auth.dart';
+import 'package:npo_automative_app/block/login_bloc.dart';
+import 'package:npo_automative_app/block/login_event.dart';
+import 'package:provider/provider.dart';
 
-class ProfilePage extends StatefulWidget  {
-  @override 
-  _ProfilePageState createState() => _ProfilePageState();
-}
+class ProfilePage extends StatelessWidget  {
+  final BuildContext ctx;
+  ProfilePage(this.ctx);
 
-class _ProfilePageState extends State<ProfilePage> {
   @override 
   Widget build(BuildContext context) {
+    print('PROFILE: $ctx');
     AuthUserBloc authUserBloc = AuthUserBloc();
     return Scaffold(
       appBar: AppBar(
@@ -39,12 +39,8 @@ class _ProfilePageState extends State<ProfilePage> {
         actions: [
           InkWell(
           onTap: () async {
-            authUserBloc.loggout();
-            Navigator.push(context,
-              MaterialPageRoute(
-                builder: (context) => AuthPage()
-              ),
-            );
+            print('in tab');
+            ctx.read<LoginBloc>().add(LoginButtonTappedEvent(false));
           },
           child: Icon(
             Icons.exit_to_app,

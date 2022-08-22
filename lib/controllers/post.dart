@@ -17,4 +17,4 @@ class PostController extends ControllerMVC {
       setState(() => currentState = PostResultFailure("Нет Интернета"));
     }
   }
-}
+} 

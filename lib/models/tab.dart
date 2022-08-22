@@ -8,4 +8,4 @@ class MyTab {
   const MyTab({required this.name, required this.color, required this.icon});
 }
 
-enum TabItem { POSTS, ALBUMS, TODOS }
+enum TabItem { POSTS, ALBUMS, PROFILE }

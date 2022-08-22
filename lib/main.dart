@@ -1,10 +1,11 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:npo_automative_app/block/auth_block.dart';
+import 'package:npo_automative_app/block/login_bloc.dart';
 import 'package:npo_automative_app/models/auth_model.dart';
 import 'package:npo_automative_app/pages/auth.dart';
 import 'package:npo_automative_app/pages/home/home.dart';
+import 'package:npo_automative_app/pages/login_screen.dart';
 
 bool showPage = false;
 void main() async {
@@ -25,7 +26,16 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
         primarySwatch: Colors.deepPurple,
       ),
-      home: showPage ? HomePage() : AuthPage(),
+      home: _prepareAuthScreen() //showPage ? HomePage() : AuthPage(),
+    );
+  }
+
+  Widget _prepareAuthScreen() {
+    return BlocProvider(
+      create: (BuildContext context) {
+        return LoginBloc();
+      },
+      child: const LoginScreen(),
     );
   }
 }
