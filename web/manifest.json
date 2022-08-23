@@ -1,6 +1,6 @@
 {
-    "name": "npo_automative_app",
-    "short_name": "npo_automative_app",
+    "name": "bloc_login",
+    "short_name": "bloc_login",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

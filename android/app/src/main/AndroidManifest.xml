@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.npo_automative_app">
+    package="com.example.bloc_login">
    <application
-        android:label="npo_automative_app"
+        android:label="bloc_login"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
