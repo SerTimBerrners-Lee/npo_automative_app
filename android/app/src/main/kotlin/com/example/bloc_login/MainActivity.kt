@@ -1,4 +1,4 @@
-package com.example.bloc_login
+package com.example.npo_automative_app
 
 import io.flutter.embedding.android.FlutterActivity
 

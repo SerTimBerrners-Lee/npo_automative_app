@@ -1,5 +1,5 @@
 name: npo_automative_app
-description: НПО Автоматив - автоматизация производства.
+description: НПО Автомотив - автоматизация производства.
 
 publish_to: 'none' 
 
@@ -19,6 +19,7 @@ dependencies:
   formz: ^0.4.1
   json_serializable: ^6.3.1
   http: ^0.13.5
+  flutter_launcher_icons: ^0.10.0
 
 
 dev_dependencies:
@@ -32,3 +33,10 @@ flutter:
 
   assets:
     - assets/images/
+
+flutter_icons:
+  image_path: "assets/images/2.png"
+  android: true
+  ios: true
+  adaptive_icon_background: "#ed1e79"
+
