@@ -55,7 +55,7 @@ class _UsernameInput extends StatelessWidget {
                 prefixIcon: Icon(Icons.password),
                 filled: true,
                 fillColor: Colors.white,
-                hintText: 'Пароль',
+                hintText: 'Табель',
                 errorText: state.username.invalid ? 'invalid username' : null,
                 contentPadding:
                     const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
@@ -89,7 +89,7 @@ class _PasswordInput extends StatelessWidget {
                 prefixIcon: Icon(Icons.numbers),
                 filled: true,
                 fillColor: Colors.white,
-                hintText: 'Табель',
+                hintText: 'Пароль',
                 errorText: state.password.invalid ? 'invalid password' : null,
                 contentPadding:
                     const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),

@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:npo_automative_app/authentication/bloc/authentication_bloc.dart';
+import 'package:npo_automative_app/packages/user_repository/user_repository.dart';
 import 'package:provider/provider.dart';
 
-class ProfilePage extends StatelessWidget  {
+class ProfilePage extends StatelessWidget {
+
+  String descriptionRole(Map<String, dynamic> role) {
+    return role['description'];
+  }
 
   @override 
   Widget build(BuildContext context) {
@@ -51,44 +57,48 @@ class ProfilePage extends StatelessWidget  {
     );
   }
 
-
   Widget getAppBottomView() {
-    return Container(
-      padding: EdgeInsets.only(left: 30, bottom: 20),
-      child: Row(
-        children: [
-          getProfileView(),
-          Container(
-            margin: EdgeInsets.only(left: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Перов Д.А.',
-                  style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white),
+    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+      buildWhen: (previous, current) => true,
+      builder: (context, state) {
+        return Container(
+          padding: EdgeInsets.only(left: 30, bottom: 20),
+          child: Row(
+            children: [
+              getProfileView(),
+              Container(
+                margin: EdgeInsets.only(left: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      state.user.login,
+                      style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white),
+                    ),
+                    Text(
+                      descriptionRole(state.user.role),
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      state.user.phone,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
-                Text(
-                  'Программист',
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.white,
-                  ),
-                ),
-                Text(
-                  '+7 920 418 38 55',
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 
