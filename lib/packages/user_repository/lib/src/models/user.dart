@@ -3,14 +3,23 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class User extends Equatable {
-  const User(this.id, this.initial, this.email, this.phone, this.login, this.tabel, this.role);
+  const User(
+    this.id,
+    this.initial,
+    this.email,
+    this.phone,
+    this.login,
+    this.tabel,
+    this.role, 
+    this.token
+    );
 
-  final String id, initial, tabel, login, phone, email;
+  final String id, initial, tabel, login, phone, email, token;
   final Map<String, dynamic> role;
 
   @override
   List<Object> get props => [id];
-  static const empty = User('-','-','-','-','-','-', {});
+  static const empty = User('-','-','-','-','-','-', {}, '');
 
   User.fromJson(Map<String, dynamic> json) :
     id = json['id'].toString(),
@@ -19,7 +28,8 @@ class User extends Equatable {
     phone = json['phone'],
     login = json['login'],
     tabel = json['tabel'],
-    role = json['role'];
+    role = json['role'],
+    token = json['token'];
   
   Map<String, dynamic> toJson() => {
     'id': id,
@@ -28,7 +38,8 @@ class User extends Equatable {
     'phone': phone,
     'login': login,
     'tabel': tabel,
-    'role': role
+    'role': role,
+    'token': token
   };
 }
 

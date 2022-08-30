@@ -26,8 +26,7 @@ class AuthenticationRepository {
   }) async {
     _tabel = username;
     _password = password;
-
-    await storage.write(key: 'isAuth', value: 'true');
+    
     await storage.write(key: 'tabel', value: _tabel);
     await storage.write(key: 'password', value: _password);
 

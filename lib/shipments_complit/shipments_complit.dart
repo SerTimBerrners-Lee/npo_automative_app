@@ -1,4 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:npo_automative_app/library/methods.dart';
+import 'package:npo_automative_app/packages/complet_sh_repository/lib/complet_sh_repository.dart';
+import 'package:npo_automative_app/packages/complet_sh_repository/lib/src/complet_sh_model.dart';
+import 'package:npo_automative_app/packages/product_repository/lib/src/model/product_model.dart';
+import 'package:npo_automative_app/packages/shipments_repository/lib/src/model/shipments.model.dart';
+import 'package:npo_automative_app/shipments_complit/bloc/complit_bloc.dart';
+import 'package:npo_automative_app/shipments_complit/bloc/complit_event.dart';
+import 'package:npo_automative_app/shipments_complit/bloc/complit_state.dart';
+import 'package:npo_automative_app/shipments_complit/complit_sh_detal.dart';
 
 class ShipmentsComplitPage extends StatefulWidget  {
   @override 
@@ -6,24 +16,9 @@ class ShipmentsComplitPage extends StatefulWidget  {
 }
 
 class _ShipmentsComplitState extends State<ShipmentsComplitPage> {
-  // final Repository repo = new Repository();
 
-  // PostResult currentState = PostResultLoading();
-
-  // void init() async {
-  //   try {
-  //     final postList = await repo.fetchPosts();
-  //     setState(() => currentState = PostResultSuccess(postList));
-  //   } catch (error) {
-  //     setState(() => currentState = PostResultFailure("Нет Интернета"));
-  //   }
-  // }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   init();
-  // }
+  ComplectShRepository complectRepository = ComplectShRepository();
+  final ShipmentsMethods sm = ShipmentsMethods();
 
   @override 
   Widget build(BuildContext context) {
@@ -37,53 +32,62 @@ class _ShipmentsComplitState extends State<ShipmentsComplitPage> {
           ),
         ),
       ),
-      body: _buildContent(),
+      body: BlocProvider(
+        create: (_) {
+          return ComplitShBloc(complectRepository: complectRepository);
+        },
+        child: _buildContent()
+      ),
     );
   }
 
   Widget _buildContent() {
-    // final state = currentState;
-    // if (state is PostResultLoading) {
-    //   // pedding
-    //   return Center(
-    //     child: CircularProgressIndicator(),
-    //   );
-    // } else if (state is PostResultFailure) {
-    //   // error 
-    //   return Center(
-    //     child: Text(
-    //       state.error,
-    //       textAlign: TextAlign.center,
-    //       style: Theme.of(context).textTheme.headline4
-    //     ),
-    //   );
-    // }
+    return BlocBuilder<ComplitShBloc, ComplitShState>(
+      buildWhen: (previous, current) => true,
+      builder: (context, state) {
+        if (state.status == false) {
+          context.read<ComplitShBloc>().add(ComplitShipmentsGet());
+          return Text('Получение данных...');
+        }
+        else {
+          return Padding( 
+            padding: EdgeInsets.all(10),
+            child: ListView.builder(
+              itemCount: state.complits.length,
+              itemBuilder: (context, index) => _itemCard(state.complits[index]),
+            ),
+          );
+        }
+      }
+    );
+  }
 
-    // final posts = (state as PostResultSuccess).postList.posts;
-    return Padding( 
-      padding: EdgeInsets.all(10),
-      child: Card(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            const ListTile(
-              leading: Icon(Icons.album),
-              title: Text('№ O22-152'),
-              subtitle: Text('\nВШ70-200 с тележкой\nВыпрессовщик шкворней ВШ70-200 с тележкой\n04.08.2022'),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                const SizedBox(width: 8),
-                TextButton(
-                  child: const Text('Подробнее'),
-                  onPressed: () {/* ... */},
-                ),
-                const SizedBox(width: 8),
-              ],
-            ),
-          ],
-        ),
+  Widget _itemCard(ComplitSh shComplit) {
+    return Card(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          ListTile(
+            leading: Icon(Icons.album),
+            title: Text('${shComplit.number_order}'),
+            subtitle: Text('\n${sm.getProduct(shComplit.shipments)}\n${shComplit.date_shipments}'),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              const SizedBox(width: 8),
+              TextButton(
+                child: const Text('Подробнее'),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ComplitShDetals(shComplit))
+                  );
+                },
+              ),
+              const SizedBox(width: 8),
+            ],
+          ),
+        ],
       ),
     );
   }
